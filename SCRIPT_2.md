@@ -3,7 +3,7 @@
 ## Título: "Arquitectura Data Lakehouse con CDC y Apache Iceberg: Potenciado por Amazon Q Developer"
 
 ### [0-10 segundos]
-**Presentador:** "Hola a todos. Hoy les voy a contar cómo crear un data lakehouse realmente potente. Lo interesante es que lo hicimos en tiempo récord gracias a Amazon Q Developer. Vamos a ver cómo capturamos cambios en una base de datos relacional y los transformamos en algo realmente útil."
+**Presentador:** "Hola a todos. Hoy les voy a contar cómo crear un data-lakehouse realmente potente. Lo interesante es que lo hicimos en tiempo récord gracias a Amazon Q Developer. Vamos a ver cómo capturamos cambios en una base de datos relacional y los transformamos en algo realmente útil."
 
 **Pantalla:** Título del video y logo del proyecto Lakehouse con estilo moderno.
 
