@@ -111,7 +111,25 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=password
       - POSTGRES_DB=transactions
+      
+  # PySpark streaming job para consumir eventos CDC
+  spark-streaming:
+    image: bitnami/spark:3.3.0
+    container_name: spark-streaming
+    depends_on:
+      - kafka
+      - kafka-connect
+    volumes:
+      - ./spark-job:/opt/bitnami/spark/app
+    command: >
+      /bin/bash -c "
+        echo 'Waiting for Kafka to be ready...' &&
+        sleep 30 &&
+        echo 'Installing required packages...' &&
+        pip install kafka-python==2.0.2 &&
+        echo 'Starting PySpark streaming job...' &&
+        /opt/bitnami/spark/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0 /opt/bitnami/spark/app/cdc_consumer.py
+      "
 
 volumes:
   postgres_data:
-
