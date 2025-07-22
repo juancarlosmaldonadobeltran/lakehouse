@@ -60,17 +60,17 @@ config:
 ---
 flowchart TD
     subgraph subGraph0["Fuentes de Datos"]
-        PG["PostgreSQL"]
-        DG["Data Generator"]
+        PG["🐘 PostgreSQL"]
+        DG["⚙️ Data Generator"]
     end
     subgraph subGraph1["Procesamiento de Eventos"]
-        DEB["Debezium Kafka Connector"]
-        KAFKA["Kafka"]
-        SPARK["Spark Streaming"]
+        DEB["📊 Debezium"]
+        KAFKA["🚀 Kafka"]
+        SPARK["✨ Spark"]
     end
     subgraph subGraph2["Data Lakehouse"]
-        S3["S3 / LocalStack"]
-        ICEBERG["Tabla Iceberg"]
+        S3["☁️ S3 / LocalStack"]
+        ICEBERG["❄️ Iceberg"]
     end
     PG -- Cambios en datos --> DEB
     DEB -- CDC Events --> KAFKA
