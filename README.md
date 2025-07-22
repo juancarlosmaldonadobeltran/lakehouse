@@ -78,6 +78,14 @@ Para ver los eventos CDC en el topic de Kafka:
 docker exec -it kafka kafka-console-consumer --bootstrap-server kafka:9092 --topic postgres.public.users --from-beginning
 ```
 
+## Consultar la tabla Iceberg
+
+Para consultar los datos almacenados en la tabla Iceberg:
+
+```bash
+docker exec -it spark-streaming /opt/spark/work-dir/run_query.sh
+```
+
 ### Formato de eventos CDC
 
 Los eventos CDC de Debezium contienen la siguiente estructura:

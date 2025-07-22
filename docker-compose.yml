@@ -114,22 +114,19 @@ services:
       
   # PySpark streaming job para consumir eventos CDC
   spark-streaming:
-    image: bitnami/spark:3.3.0
+    build:
+      context: ./spark-job
+      dockerfile: Dockerfile
     container_name: spark-streaming
     depends_on:
       - kafka
       - kafka-connect
+      - localstack
+    ports:
+      - "4040:4040"  # Spark UI
     volumes:
-      - ./spark-job:/opt/bitnami/spark/app
-    command: >
-      /bin/bash -c "
-        echo 'Waiting for Kafka to be ready...' &&
-        sleep 30 &&
-        echo 'Installing required packages...' &&
-        pip install kafka-python==2.0.2 &&
-        echo 'Starting PySpark streaming job...' &&
-        /opt/bitnami/spark/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.0 /opt/bitnami/spark/app/cdc_consumer.py
-      "
+      - ./spark-job:/opt/spark/work-dir
+    command: ["/bin/bash", "/opt/spark/work-dir/run.sh"]
 
 volumes:
   postgres_data:

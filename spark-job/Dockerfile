@@ -1,20 +1,22 @@
-FROM python:3.9-slim
+FROM bitnami/spark:3.3.0
 
-# Install Java - fixed to work with Debian slim image
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends default-jre && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+USER root
+
+# Install Python dependencies
+RUN pip install kafka-python==2.0.2 requests boto3 s3fs
+
+# Create directory for pre-downloading dependencies
+RUN mkdir -p /opt/spark/deps
+
+# Copy a script to pre-download dependencies
+COPY download-deps.sh /opt/spark/deps/
+RUN chmod +x /opt/spark/deps/download-deps.sh
+
+# Pre-download Spark dependencies
+RUN /opt/spark/deps/download-deps.sh
 
 # Set working directory
-WORKDIR /app
+WORKDIR /opt/spark/work-dir
 
-# Copy requirements and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the PySpark job
-COPY cdc_consumer.py .
-
-# Command to run the job
-CMD ["python", "cdc_consumer.py"]
+# Switch back to non-root user
+USER 1001

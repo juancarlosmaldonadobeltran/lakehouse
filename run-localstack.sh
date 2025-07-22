@@ -15,14 +15,11 @@ sleep 10
 echo "Creando topic cdc-events en Kafka..."
 docker exec kafka kafka-topics --create --if-not-exists --bootstrap-server kafka:9092 --replication-factor 1 --partitions 1 --topic cdc-events
 
-echo "Esperando a que Kafka Connect esté listo..."
-sleep 60
-
 # Verificar que Kafka Connect esté disponible
 echo "Verificando que Kafka Connect esté disponible..."
 while ! curl -s http://localhost:8083/ > /dev/null; do
     echo "Kafka Connect aún no está disponible, esperando..."
-    sleep 10
+    sleep 2
 done
 echo "Kafka Connect está disponible"
 
